@@ -6,13 +6,31 @@
 Задание: переписать код используя как минимум 1 функцию
 """
 
-year = input('Ввведите год рождения А.С.Пушкина:')
-while year != '1799':
-    print("Не верно")
-    year = input('Ввведите год рождения А.С.Пушкина:')
+import random
 
-day = input('Ввведите день рождения Пушкин?')
-while day != '6':
-    print("Не верно")
-    day = input('В какой день июня родился Пушкин?')
-print('Верно')
+
+def victory_birth(dict_names, count_names):
+    """случайный выбор имен для викторины (количество имён передаётся как параметр)"""
+    select_names = random.sample(list(dict_names.keys()), count_names)
+    print(select_names)
+    for i in range(count_names):
+        date_of_birth = input(f'Когда родился {select_names[i]} ? '
+                              f'введите дату рождения в формате dd.mm.yyyy:')
+        if date_of_birth == dict_names.get(select_names[i]):
+            print(f'Вы угадали! {select_names[i]} родился {date_of_birth}!')
+        else:
+            print(f'Вы не угадали! {select_names[i]} родился {date_of_birth}!')
+    pass
+
+
+dict_celeb = {'А.С. Пушкин': '06.06.1979', 'Л.Н.Толстой': '09.09.1828', 'Ф.М.Достоевский': '11.11.1821',
+              'А.П.Чехов': '29.01.1960', 'И.С.Тургенев': '09.11.1918', 'А.И.Солженицын': '11.12.1918',
+              'А.А. Фет': '05.12.2020', 'М.Ю. Лермонтов': '15.10.1984', 'C.А. Есенин': '03.10.1985',
+              'Ф.И. Тютчев': '05.12.1983'}
+
+repeat_prog = 'да'
+
+while repeat_prog == 'да':
+    victory_birth(dict_celeb, 5)
+
+    repeat_prog = input('Если хотите начать игру сначала, введите - да, если не хотите - введите нет: ')
