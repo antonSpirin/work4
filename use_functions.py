@@ -35,8 +35,6 @@
 """
 
 
-history_transaction = []
-
 def transaction(history_transaction, positiv_negativ_numb):
     balance = 0
     for i in range(len(history_transaction)):
@@ -46,29 +44,44 @@ def transaction(history_transaction, positiv_negativ_numb):
         history_transaction.append(add_transaction)
     else:
         add_transaction = float(input('Ввведите сумму вашей покупки: '))
-        if add_transaction < balance:
-            add_transaction*-1
+        if add_transaction <= balance:
+            add_transaction = add_transaction * -1  # умножаем на -1 для того что бы сумма добавлялась с минусом, это покупка
             history_transaction.append(add_transaction)
         else:
             print('Сумма покупки превышает ваш баланс')
-    #print(history_transaction)
-def balance_func (history_transaction):
-    balance=0
+    # print(history_transaction)
+
+
+def balance_func(history_transaction):
+    balance = 0
     for i in range(len(history_transaction)):
         balance += history_transaction[i]
     print(f'Ваш баланс: {balance} $')
     return balance
 
 
+def history_buy(history_transaction):
+    buy_list=[]
+    all_summ_buy = 0
+    for i in range(len(history_transaction)):
+        if history_transaction[i] < 0:
+            buy_list.append(history_transaction[i])
+            all_summ_buy += history_transaction[i]
+            print(f'Покупка: {history_transaction[i]} $')
 
-balance = 0
-print(f'Добро пожаловать в ваш электроный кошелек!\n На вашем счету: {balance} $')
+    print(f'Общая сумма покупок: {all_summ_buy * -1} $')
+    return buy_list
+
+
+history_transaction = []
+print('Добро пожаловать в ваш электроный кошелек!')
 
 while True:
     print('1. пополнение счета')
     print('2. покупка')
     print('3. история покупок')
-    print('4. выход')
+    print('4. запросить баланс')
+    print('5. выход')
 
     choice = input('Выберите пункт меню: ')
     if choice == '1':
@@ -79,12 +92,13 @@ while True:
         transaction(history_transaction, -1)
         balance_func(history_transaction)
         pass
-
     elif choice == '3':
+        history_buy(history_transaction)
         pass
     elif choice == '4':
+        balance_func(history_transaction)
+        pass
+    elif choice == '5':
         break
     else:
         print('Неверный пункт меню')
-
-print(history_transaction)
